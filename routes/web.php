@@ -3,6 +3,7 @@
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,7 +43,18 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('post');
     Route::post('/post', [PostsController::class, 'store'])->name("post.store");
     Route::patch('/post/{id}', [PostsController::class, 'update'])->name("post.update");
-
     Route::get('/edit-post/{id}', [PostsController::class, 'edit'])->name("post.edit");
     Route::delete('/post/{id}', [PostsController::class, 'destroy'])->name("post.delete");
+
+    Route::get('/userpost/{id}', [PostsController::class, 'showbyuser'])->name("userpost");
+
+    
+    Route::get('/users', [UsersController::class, 'index'])->name('users');
+    Route::patch('/users', [UsersController::class, 'update'])->name('users.edit');
+    Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name("users.delete");
+
+    // Route::prefix('login')->group(function () {
+    //     Route::get('/', [LoginController::class, 'create'])->name('login');
+    //     Route::post('/', [LoginController::class, 'store'])->name("login.store");
+    // });
 });

@@ -11,4 +11,15 @@ class Role extends Model
 
     public const IS_ADMIN=1;
     public const IS_USER=0;
+
+    public function get_role_type($roles_id){
+        switch ($roles_id) {
+            case Role::IS_ADMIN:
+                return "ADMIN";
+                break;
+            case Role::IS_USER:
+                return "USER";
+                break;
+        }
+    }
 }

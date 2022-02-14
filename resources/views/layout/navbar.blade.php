@@ -13,6 +13,14 @@
           <li class="nav-item">
             <a class="nav-link {{ (request()->routeIs('post')) ? 'active' : '' }}" aria-current="page" href="{{ route('post') }}">發文</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ (request()->routeIs('userpost')) ? 'active' : '' }}" aria-current="page" href="{{ route('userpost',auth()->user()->id) }}">我的文章</a>
+          </li>
+          @endif
+          @if(auth()->check()&&auth()->user()->roles_id==\App\Models\Role::IS_ADMIN)
+          <li class="nav-item">
+            <a class="nav-link {{ (request()->routeIs('users')) ? 'active' : '' }}" aria-current="page" href="{{ route('users') }}">管理使用者</a>
+          </li>
           @endif
         </ul>
         <ul class="navbar-nav mb-2 mb-lg-0 d-flex">

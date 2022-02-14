@@ -1,6 +1,6 @@
 @extends('layout.main')
 
-@section('title','Sign Up')
+@section('title','註冊')
 
 @section('content')
 <div class="card">

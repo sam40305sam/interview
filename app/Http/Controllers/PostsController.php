@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class PostsController extends Controller
 {
@@ -14,6 +15,13 @@ class PostsController extends Controller
      */
     public function index()
     {
+        $data=[];
+        if (Post::first() === null) {
+            $data=[
+                'posts'=> null, 
+            ];
+            return view('home', $data);
+        }
         $posts = Post::orderBy('updated_at', 'desc')->paginate(5);//->paginate(5);
         $data = [
             'posts' => $posts
@@ -51,6 +59,33 @@ class PostsController extends Controller
         ];
         Post::create($data);
         return redirect()->route('home');
+    }
+
+
+    public function showbyuser($id)
+    {
+
+        $data=[];
+        $username=User::find($id);
+        if($username===null){
+            $data=[
+                'posts'=> null, 
+            ];
+            return view('home', $data);
+        }
+        $posts = Post::where('author',$username->first()->name)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(5);
+        if (Post::where('author',$username->name)->first() === null) {
+            $data=[
+                'posts'=> null, 
+            ];
+            return view('home', $data);
+        }
+        $data = [
+            'posts' => $posts,
+        ];
+        return view('home', $data);
     }
 
     /**
