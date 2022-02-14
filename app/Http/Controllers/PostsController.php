@@ -14,7 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(5);//->paginate(5);
+        $posts = Post::orderBy('updated_at', 'desc')->paginate(5);//->paginate(5);
         $data = [
             'posts' => $posts
         ];
@@ -91,6 +91,10 @@ class PostsController extends Controller
      */
     public function update(Request $request,Post $id)
     {
+        $this->validate($request, [
+            'title' => 'required|min:5|max:25',
+            'content' => 'required|min:5|max:255',
+        ]);
         $this->authorize('update', $id);
         $id->update($request->all());
         return redirect()->route('home');

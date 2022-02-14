@@ -19,11 +19,13 @@
                         <li><a class="dropdown-item" href="{{ route('post.edit',$post->id)}}">編輯</a></li>
                         @endcan
                         @can('delete',$post)
-                        {{-- <li>
-                            <form action="{{route('post.delete',$post->id)}}" method="POST">
+                        <li>
+                            <form action="{{route('post.delete',$post->id)}}" method="POST" id="deleteform{{$post->id}}">
+                                {{ csrf_field() }}
                                 <button type="submit" class="dropdown-item" id="ConfirmDelete" >刪除</button>
+                                @method("delete")
                             </form>
-                        </li> --}}
+                        </li>
                         @endcan
                     </ul>
                 </div>
@@ -36,17 +38,18 @@
             <a href="/post/{{$post->id}}" class="btn btn-outline-primary btn-sm">查看更多</a>
         </div>
     </div>
+    
+    <script>
+        $('#deleteform{{$post->id}}').submit(function() {
+            if(confirm("確定刪除嗎")){
+                alert("刪除成功");
+                return true;
+            }
+            return false;
+        });
+    </script>
 @endforeach
 <div class="mt-3">
     {{ $posts->links() }}
 </div>
-<script>
-    $("#ConfirmDelete").click(function(){
-        if(confirm("確定刪除嗎")){
-            alert("刪除成功");
-            return true;
-        }
-        return false;
-    });
-</script>
 @endsection

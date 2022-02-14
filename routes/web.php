@@ -38,11 +38,11 @@ Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/post', function () {
-        return view('posteditor');
+        return view('newpost');
     })->name('post');
     Route::post('/post', [PostsController::class, 'store'])->name("post.store");
     Route::patch('/post/{id}', [PostsController::class, 'update'])->name("post.update");
 
     Route::get('/edit-post/{id}', [PostsController::class, 'edit'])->name("post.edit");
-    Route::DELETE('/post/{id}', [PostsController::class, 'destroy'])->name("post.delete");
+    Route::delete('/post/{id}', [PostsController::class, 'destroy'])->name("post.delete");
 });
