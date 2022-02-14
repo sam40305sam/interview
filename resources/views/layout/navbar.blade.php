@@ -11,7 +11,7 @@
           </li>
           @if( auth()->check() )
           <li class="nav-item">
-            <a class="nav-link {{ (request()->routeIs('newpost')) ? 'active' : '' }}" aria-current="page" href="{{ route('newpost') }}">發文</a>
+            <a class="nav-link {{ (request()->routeIs('post')) ? 'active' : '' }}" aria-current="page" href="{{ route('post') }}">發文</a>
           </li>
           @endif
         </ul>

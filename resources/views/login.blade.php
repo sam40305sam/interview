@@ -17,11 +17,11 @@
             @endif
             <div class="mb-3">
                 <label for="UserNameInput" class="form-label">User Name or Email</label>
-                <input type="text" class="form-control" id="UserNameInput" aria-describedby="usernameHelp" name="username">
+                <input type="text" class="form-control" id="UserNameInput" name="username">
             </div>
             <div class="mb-3">
                 <label for="PasswordInput" class="form-label">Password</label>
-                <input type="password" class="form-control" id="PasswordInput" aria-describedby="passwordHelp" name="password">
+                <input type="password" class="form-control" id="PasswordInput" name="password">
             </div>
             <button type="submit" class="btn btn-primary">送出</button>
         </form>
