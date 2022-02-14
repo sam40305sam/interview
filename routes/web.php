@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+})->name('home');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/new-post', function () {
+        return view('home');
+    })->name('newpost');
 });
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+
+Route::prefix('signup')->group(function () {
+    Route::get('/', [SignupController::class, 'create'])->name('signup');
+    Route::post('/', [SignupController::class, 'store'])->name("signup.store");
+});
+
+Route::prefix('login')->group(function () {
+    Route::get('/', [LoginController::class, 'create'])->name('login');
+    Route::post('/', [LoginController::class, 'store'])->name("login.store");
+});
+
+Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
